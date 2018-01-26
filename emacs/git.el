@@ -13,8 +13,8 @@
 
 (add-hook 'magit-status-mode-hook
           '(lambda ()
-             (define-key git-rebase-mode-map "\C-p" 'git-rebase-move-line-up)
-             (define-key git-rebase-mode-map "\C-n" 'git-rebase-move-line-down)
+             ;(define-key git-rebase-mode-map "\C-p" 'git-rebase-move-line-up)
+             ;(define-key git-rebase-mode-map "\C-n" 'git-rebase-move-line-down)
              (define-key magit-status-mode-map (kbd "q")
                'magit-quit-fullscreen-session)
              (define-key magit-status-mode-map (kbd "x")

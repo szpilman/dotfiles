@@ -8,11 +8,14 @@
 (defvar my-packages '(evil
                       evil-leader
                       evil-matchit
+                      evil-snipe
                       key-chord
                       org
                       w3m
+                      xterm-frobs
                       ; movement
                       smooth-scrolling
+                      hiwin
                       ; project & file mgmt
                       projectile
                       flx-ido
@@ -22,12 +25,12 @@
                       paredit-everywhere
                       rainbow-delimiters
                       ; js
-                      js2-mode
+                      rjsx-mode
                       kite
                       ; clojure
                       clojure-mode
                       cider
-                      ac-nrepl
+                      ;ac-nrepl
                       ; general workflow
                       column-enforce-mode
                       auto-complete

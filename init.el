@@ -1,3 +1,11 @@
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
+(load-library "url-handlers")
+
 (when (display-graphic-p)
   (tool-bar-mode -1)
   (menu-bar-mode -1))
@@ -5,13 +13,20 @@
 (setq require-final-newline nil)
 (setq fill-column 70)
 (setq smooth-scroll-margin 5)
-(setq user-mail-address "vic@longstorm.org")
-(setq user-full-name "Vic Goldfeld")
+(setq user-mail-address "bernardo.szpilman@intelie.com.br")
+(setq user-full-name "Bernardo Szpilman")
 
-(setq eshell-aliases-file (expand-file-name "~/.emacs.d/eshell/alias"))
-(add-to-list 'load-path (expand-file-name "~/datav/code/goldfeld/dotfiles/emacs/lib"))
-(add-to-list 'load-path (expand-file-name "~/datav/code/goldfeld/dotfiles/emacs/evil"))
-(add-to-list 'load-path (expand-file-name "~/datav/code/goldfeld/dotfiles/emacs/"))
+(add-to-list 'load-path (expand-file-name "~/dotfiles/emacs/lib"))
+(add-to-list 'load-path (expand-file-name "~/dotfiles/emacs/evil"))
+(add-to-list 'load-path (expand-file-name "~/dotfiles/emacs/tree"))
+(add-to-list 'load-path (expand-file-name "~/dotfiles/emacs/"))
+
+(eval-after-load "tree-widget"
+  '(if (boundp 'tree-widget-themes-load-path)
+       (add-to-list 'tree-widget-themes-load-path "~/dotfiles/emacs/widget/")))
+(autoload 'imenu-tree "imenu-tree" "Imenu tree" t)
+(autoload 'tags-tree "tags-tree" "TAGS tree" t)
+
 (setq default-abbrev-mode t)
 (setq-default indent-tabs-mode nil)
 
@@ -19,21 +34,16 @@
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 (setq create-lockfiles nil)
 
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "luakit")
-
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-
 (load "packages.el")
 
 (require 'evil)
-(require 'projectile)
 (require 'rainbow-delimiters)
 
 (load "paredit.el")
 
-(require 'cm-mode)
+(require 'hiwin)
+(hiwin-activate)
+;(set-face-background 'hiwin-face "black")
 
 (require 'column-enforce-mode)
 (make-column-rule 80)
@@ -45,96 +55,39 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 ;(add-hook 'after-init-hook #'global-flycheck-mode)
 
-;(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-(require 'auto-complete-config)
-(ac-config-default)
-(setq
- ac-auto-start nil
- ac-auto-show-menu 0.1
- ac-menu-height 20
- ac-modes (append ac-modes '(org-mode)))
-(global-auto-complete-mode t)
-
-;(load-theme 'solarized-dark t)
-(load-theme 'zenburn t)
-;(load-theme 'purple-haze t)
-;(load-theme 'soothe t)
-
-(require 'ido)
-(require 'flx-ido)
-(ido-mode 1)
-(ido-everywhere 1)
-(flx-ido-mode 1)
-(setq ido-use-faces nil)
-(setq ido-create-new-buffer 'always)
-(setq ido-enable-tramp-completion nil)
-(setq ido-enable-flex-matching t)
-
-;(require 'midnight)
-;(midnight-delay-set 'midnight-delay "8:00am")
-;(add-hook 'midnight-hook 'calendar)
-; here's the place to create nightly build hooks
-
 (require 'whitespace)
 (setq whitespace-style '(face empty tabs))
 ;(setq whitespace-style '(face empty tabs lines-tail trailing))
 (global-whitespace-mode t)
 (setq indent-tabs-mode nil)
 
-(defun string/starts-with (s arg)
-  "returns non-nil if string S starts with ARG.  Else nil."
-  (cond ((>= (length s) (length arg))
-         (string-equal (substring s 0 (length arg)) arg))
-        (t nil)))
-
-(add-hook 'font-lock-mode (function (lambda ()
-    (setq font-lock-keywords
-          (append font-lock-keywords
-                  '(("\t+" (0 'my-tab-face t))
-                    ;("^.\\{81,\\}$" (0 'my-long-line-face t))
-                    ("[ \t]+$"      (0 'my-trailing-space-face t))))))))
+;(load-theme 'solarized-dark t)
+;(load-theme 'zenburn t)
+;(load-theme 'purple-haze t)
+;(load-theme 'cyberpunk t)
+(load-theme 'bubbleberry t)
+;(load-theme 'soothe t)
 
 (load "evil/binds.el")
 (load "evil/m-binds.el")
-(load "cursor.el")
-(load "clojure.el")
-(load "js.el")
-(load "projectile.el")
-(load "prm.el")
 (load "org-mode.el")
 (load "git.el")
-(load "reptile.el")
-;(load "mawkro.el")
-
-(defun load-custom-scratch ()
-  "Load the contents of my custom scratch hints into the
-  scratch buffer, clearing its contents first."
-  (with-current-buffer (get-buffer "*scratch*")
-    (delete-region (point-min) (point-max))
-    (shell-command (format "cat %s"
-     "~/datav/code/goldfeld/dotfiles/emacs/scratch.el ~/.dow/today")
-		   (current-buffer))))
-(load-custom-scratch)
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(my-tab-face ((((class color)) (:background "grey10"))) t)
- '(my-trailing-space-face ((((class color)) (:background "gray10"))) t))
-
+(load "javascript.el")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("fc3ba70e150efbe45db40b4b4886fc75716b4f3b1247a4b96e5be7cfbe4bc9e1" "968d1ad07c38d02d2e5debffc5638332696ac41af7974ade6f95841359ed73e3" "050beead9159996a613ba4bc734de8b13b882f1c6596d1dffa4f51d096662cf6" "7fa9dc3948765d7cf3d7a289e40039c2c64abf0fad5c616453b263b601532493" "e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "f89e21c3aef10d2825f2f079962c2237cd9a45f4dc1958091be8a6f5b69bb70c" "62b86b142b243071b5adb4d48a0ab89aefd3cf79ee3adc0bb297ea873b36d23f" "f5db04080a5133bc99721d680a11cf974d60d1df347b08841b43c3e97f52d3bf" "c5207e7b8cc960e08818b95c4b9a0c870d91db3eaf5959dd4eba09098b7f232b" default)))
- '(fringe-mode 6 nil (fringe))
+ '(custom-safe-themes
+   (quote
+    ("b825687675ea2644d1c017f246077cdd725d4326a1c11d84871308573d019f67" "bc40f613df8e0d8f31c5eb3380b61f587e1b5bc439212e03d4ea44b26b4f408a" default)))
  '(linum-format " %7d ")
- '(main-line-color1 "#191919")
- '(main-line-color2 "#111111")
- '(org-modules (quote (org-bbdb org-bibtex org-docview org-gnus org-info org-jsinfo org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m)))
- '(powerline-color1 "#191919")
- '(powerline-color2 "#111111")
- '(send-mail-function (quote smtpmail-send-it)))
+ '(package-selected-packages
+   (quote
+    (evil-snipe zenburn-theme w3m soothe-theme solarized-theme smooth-scrolling rjsx-mode rainbow-delimiters purple-haze-theme projectile paredit-everywhere magit load-theme-buffer-local kite key-chord flycheck flx-ido evil-matchit evil-leader erc-hl-nicks cyberpunk-theme column-enforce-mode cider bubbleberry-theme auto-complete))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

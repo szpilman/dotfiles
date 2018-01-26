@@ -1,11 +1,9 @@
 #!/bin/bash
 
-export TERM=xterm-256color
-
 sudo apt-get -y update
 sudo apt-get -y install git-core terminator gedit
-git config --global user.name "Vic Goldfeld"
-git config --global user.email "vic@longstorm.org"
+git config --global user.name "Bernardo Szpilman"
+git config --global user.email "bernardo@szpilman.co"
 git config --global push.default simple
 
 sudo apt-get -y install make automake autoconf pkg-config bison flex build-essential curl gcc g++ checkinstall python
@@ -13,6 +11,7 @@ sudo apt-get -y install libssl-dev openssh-server
 sudo apt-get -y install gnutls-bin
 sudo apt-get -y install haskell-platform
 
+mkdir ~/qfork
 mkdir -p /usr/local/bin
 mkdir ~/.emacs.d/ && mkdir ~/Maildir && mkdir ~/.xmonad
 mkdir -p ~/.emacs.d/eshell && touch ~/.emacs.d/projectile-bookmarks.old
@@ -73,9 +72,9 @@ sudo apt-get -y install acpi xclip xdotool recode
 sudo apt-get install gnupg-agent pinentry-curses
 
 # emacs
-sudo add-apt-repository -y ppa:cassou/emacs
-sudo apt-get -y update
-sudo apt-get -y install emacs24 emacs24-el emacs24-common-non-dfsg
+git clone https://github.com/ternjs/tern ~/qfork/ternjs
+cd ~/qfork/ternjs && npm install
+sudo apt-get -y install emacs25
 
 # mu4e
 sudo apt-get -y install mu4e offlineimap libgmime-2.6-dev libxapian-dev
@@ -97,8 +96,9 @@ sudo apt-get install -y nodejs
 sudo npm install -g http-server grunt-cli dustjs-linkedin
 
 # python
-sudo apt-get install python-pip
-sudo pip install virtualenv virtualenvwrapper
+sudo apt-get install python-pip python3 python3-doc
+pip install virtualenv virtualenvwrapper
+pip3 install neovim
 
 # server and database related
 ## mysql

@@ -2,7 +2,30 @@
 call plug#begin('~/.vim/plugged')
 Plug 'neovim/node-host'
 
+" python
+Plug 'KeitaNakamura/highlighter.nvim', { 'do': ':UpdateRemotePlugins' }
+" :HighlighterUpdate
+let g:highlighter#auto_update = 2
+let g:highlighter#project_root_signs = ['.git']
+let g:highlighter#syntax_python = [
+  \ {'hlgroup': 'HighlighterPythonFunction', 'hlgroup_link': 'Function',
+  \  'tagkinds'      : 'f', 'syntax_type': 'match', 'syntax_suffix' : '(\@='},
+  \ {'hlgroup': 'HighlighterPythonMethod', 'hlgroup_link': 'Function',
+  \  'tagkinds'      : 'm', 'syntax_type': 'match', 'syntax_suffix' : '(\@<='},
+  \ {'hlgroup': 'HighlighterPythonClass', 'hlgroup_link': 'Type',
+  \  'tagkinds'      : 'c'}]
+
+" js
+"Plug 'othree/yajs'
+"Plug 'pangloss/vim-javascript'
+"Plug 'MaxMEllon/vim-jsx-pretty'
+"Plug 'vimlab/neojs'
+"Plug 'othree/javascript-libraries-syntax.vim'
+" yarn global add prettier
+"Plug 'dylanaraps/taskrunner.nvim'
+
 " workflow
+Plug 'chrisbra/NrrwRgn'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install -all' }
 Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-dirvish'
@@ -15,7 +38,7 @@ Plug 'plasticboy/vim-markdown'
 
 " editing
 Plug 'junegunn/vim-easy-align'
-Plug 'snoe/nvim-parinfer.js'
+"Plug 'snoe/nvim-parinfer.js'
 
 " languages
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
@@ -50,10 +73,10 @@ Plug 'freeo/vim-kalisi'
 Plug 'croaker/mustang-vim'
 Plug 'morhetz/gruvbox'
 Plug 'jonathanfilip/vim-lucius'
-Plug 'candycode.vim'
+Plug 'vim-scripts/candycode.vim'
 Plug 'rainerborene/vim-heroku'
 Plug 'sjl/badwolf'
-Plug 'Guardian'
+Plug 'vim-scripts/Guardian'
 Plug 'Lokaltog/vim-distinguished'
 Plug 'noahfrederick/Hemisu'
 Plug 'Pychimp/vim-luna'
@@ -64,8 +87,12 @@ call plug#end()
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 runtime macros/matchit.vim
-color luna
+color koehler
+"color distinguished
 let mapleader = ","
+if $COLORTERM == 'gnome-terminal'
+  set t_Co=256
+endif
 
 nnoremap <silent> <Esc> :noh<CR><Esc>
 nnoremap <silent> <Space><Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
@@ -171,6 +198,16 @@ nnoremap <silent> <C-H><C-B> <Plug>(nyaovim-popup-tooltip-open)
 
 nmap - <Plug>(easymotion-s2)
 
+" javascript-libraries-syntax.vim
+let g:used_javascript_libs = 'react,requirejs,d3,jquery,underscore,backbone'
+let g:vim_jsx_pretty_colorful_config = 1
+let g:javascript_plugin_jsdoc = 1
+nnoremap <silent> mB :<C-U>Task --gulpfile ~/pocoweb/js/explorer/gulpfile.js gulp<CR>
+augroup javascript_folding
+  au!
+  au FileType javascript setlocal foldmethod=syntax
+augroup END
+
 " elm-vim
 let g:elm_format_autosave = 1
 
@@ -220,7 +257,6 @@ augroup filetypeSettings
   autocmd BufRead,BufNewFile *.tnt,*.ana setlocal et cc=0 filetype=markdown
 augroup END
 
-color mustang
 function! FtColors()
   if &diff || match(['perl', 'diff'], &ft) != -1
     if g:colors_name != 'gruvbox' | color gruvbox | endif

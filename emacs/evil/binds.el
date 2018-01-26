@@ -5,6 +5,7 @@
 (evil-mode t)
 (evil-leader/set-leader ",")
 (evil-snipe-mode 1)
+(evil-snipe-override-mode 1)
 
 (setq key-chord-two-keys-delay 0.5)
 (key-chord-mode 1)
@@ -12,6 +13,14 @@
 (key-chord-define evil-insert-state-map "hh" 'evil-normal-state)
 (key-chord-define evil-insert-state-map "qq" 'dabbrev-expand)
 (key-chord-define evil-insert-state-map "jj" 'hippie-expand)
+
+(evil-define-operator evil-narrow-indirect (beg end type)
+  "Indirectly narrow the regin from BEG to END."
+  (interactive "<R>")
+  (evil-normal-state)
+  (ni-narrow-to-region beg end))
+(define-key evil-normal-state-map "#" 'evil-narrow-indirect)
+(define-key evil-visual-state-map "#" 'evil-narrow-indirect)
 
 (defun evilmi-customize-keybinding ()
   (evil-define-key 'normal evil-matchit-mode-map
@@ -57,7 +66,6 @@
                                                 (evil-backward-char)
                                                 (evil-jump-item)))
 
-
 (defun backward-kill-line (arg) (interactive "p") (kill-line (- 1 arg)))
 
 (define-key evil-insert-state-map "\C-h" (kbd "<backspace>"))
@@ -84,9 +92,9 @@
  "p" (lambda () (interactive) (kbd "\C-u\M-x org-insert-drawer RET"))
  "," 'switch-to-alt-buffer
  "d" 'date-and-battery
- ".v" (kbd ":e ~/datav/code/goldfeld/dotfiles/init.el")
- ".t" (kbd ":e ~/datav/repo/log/sessions/life.org")
+ ".v" (kbd ":e ~/.emacs.d/init.el")
  ".r" (kbd ":e ~/datav/code/szpilman/reptile/.gut/sessions/reptile.org")
+ ".t" (shell-command "export TERM=xterm-256color")
  ".x" (shell-command "xcape -e 'Control_L=Escape'")
  "c" 'flycheck-next-error
  "r" 'flycheck-previous-error
