@@ -17,7 +17,9 @@
                       smooth-scrolling
                       hiwin
                       ; project & file mgmt
+                      company
                       projectile
+                      dirtree
                       flx-ido
                       magit
                       ; lisp
@@ -25,8 +27,15 @@
                       paredit-everywhere
                       rainbow-delimiters
                       ; js
-                      rjsx-mode
+                      ;rjsx-mode
+                      js2-mode
+                      web-mode
                       kite
+                      tern
+                      company-tern
+                      ; python
+                      anaconda-mode
+                      company-anaconda
                       ; clojure
                       clojure-mode
                       cider

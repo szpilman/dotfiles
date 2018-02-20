@@ -73,8 +73,17 @@ sudo apt-get install gnupg-agent pinentry-curses
 
 # emacs
 git clone https://github.com/ternjs/tern ~/qfork/ternjs
-cd ~/qfork/ternjs && npm install
+#cd ~/qfork/ternjs && npm install
 sudo apt-get -y install emacs25
+sudo npm install -g tern eslint eslint-plugin-react
+## deps anaconda-mode for python
+pip install setuptools
+ln -s ~/dotfiles/eslintrc ~/.eslintrc
+pip install pylint
+#ln -s ~/dotfiles/.tern-project ~/path/to/prj/.tern-project
+# elpy [defunct]
+#pip install rope
+#pip install jedi flake8 autopep8 yapf
 
 # mu4e
 sudo apt-get -y install mu4e offlineimap libgmime-2.6-dev libxapian-dev
@@ -85,15 +94,6 @@ sudo apt-get -y install libx11-dev libxtst-dev sqlite3 webkit-1.0 socat glib-2.0
 
 # overtone
 sudo apt-get -y install supercollider
-
-# nodejs
-sudo apt-get install -y python-software-properties
-# Note the new setup script name for Node.js v0.12
-curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
-# Then install with:
-sudo apt-get install -y nodejs
-
-sudo npm install -g http-server grunt-cli dustjs-linkedin
 
 # python
 sudo apt-get install python-pip python3 python3-doc

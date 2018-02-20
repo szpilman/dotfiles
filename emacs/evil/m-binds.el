@@ -7,6 +7,8 @@
 (define-key evil-normal-state-map "mb" (lambda () (interactive)
                                          (switch-to-alt-buffer)
                                          (kill-buffer (alt-buffer))))
+(define-key evil-normal-state-map "mB" (lambda () (interactive)
+                                         (gulpjs-start-task)))
 
 ;nnoremap <silent> mb :w<CR>:execute "keepalt b#\\| bdelete" bufnr('%')<CR>
 (define-key evil-normal-state-map "mq" (kbd ":q"))

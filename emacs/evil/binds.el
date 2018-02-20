@@ -7,6 +7,8 @@
 (evil-snipe-mode 1)
 (evil-snipe-override-mode 1)
 
+(global-set-key "\C-cw" 'workflow-map)
+
 (setq key-chord-two-keys-delay 0.5)
 (key-chord-mode 1)
 
@@ -15,7 +17,7 @@
 (key-chord-define evil-insert-state-map "jj" 'hippie-expand)
 
 (evil-define-operator evil-narrow-indirect (beg end type)
-  "Indirectly narrow the regin from BEG to END."
+  "Indirectly narrow the region from BEG to END."
   (interactive "<R>")
   (evil-normal-state)
   (ni-narrow-to-region beg end))
@@ -41,6 +43,8 @@
 (global-set-key "\C-cw" 'workflow-map)
 (define-key workflow-map (kbd "c") 'org-wc-display)
 (define-key workflow-map (kbd "p") 'pcomplete)
+;(define-key workflow-map (kbd "p") 'company-complete)
+;(define-key workflow-map (kbd "p") 'complete-at-point)
 
 ; (define-key evil-normal-state-map "c" nil)
 ; (define-key evil-motion-state-map "cu" 'universal-argument)
@@ -92,7 +96,7 @@
  "p" (lambda () (interactive) (kbd "\C-u\M-x org-insert-drawer RET"))
  "," 'switch-to-alt-buffer
  "d" 'date-and-battery
- ".v" (kbd ":e ~/.emacs.d/init.el")
+ ".v" (kbd ":e ~/dotfiles/init.el")
  ".r" (kbd ":e ~/datav/code/szpilman/reptile/.gut/sessions/reptile.org")
  ".t" (shell-command "export TERM=xterm-256color")
  ".x" (shell-command "xcape -e 'Control_L=Escape'")
@@ -112,6 +116,14 @@
 (define-key evil-normal-state-map "gt"
   (lambda () (interactive)
     (shell-command (concat "git add " (buffer-file-name)))))
+
+(define-prefix-command 'navigator-custom-map)
+(define-key evil-normal-state-map (kbd "C-t") 'navigator-custom-map)
+; unused: w x g u z n e- ; d ai
+(define-key navigator-custom-map (kbd "r") 'transpose-sexps)
+(define-key navigator-custom-map (kbd "A")
+  (lambda () (interactive) (progn (end-of-line) (paredit-newline))))
+(define-key navigator-custom-map (kbd "e") 'transpose-sexps)
 
 ;(dolist (p '("a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "n" "p" "u" "x" "y"))
 ;  (define-key evil-normal-state-map (vconcat "m" p) (lambda () (evil-set-marker p 0))

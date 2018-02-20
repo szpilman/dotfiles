@@ -13,21 +13,17 @@
 (setq require-final-newline nil)
 (setq fill-column 70)
 (setq smooth-scroll-margin 5)
-(setq user-mail-address "bernardo.szpilman@intelie.com.br")
+(setq user-mail-address "szpilman@intelie.com.br")
 (setq user-full-name "Bernardo Szpilman")
+(setq browse-url-browser-function 'browse-url-chrome)
 
+(add-to-list 'load-path (expand-file-name "~/dotfiles/emacs"))
 (add-to-list 'load-path (expand-file-name "~/dotfiles/emacs/lib"))
 (add-to-list 'load-path (expand-file-name "~/dotfiles/emacs/evil"))
 (add-to-list 'load-path (expand-file-name "~/dotfiles/emacs/tree"))
-(add-to-list 'load-path (expand-file-name "~/dotfiles/emacs/"))
+(add-to-list 'load-path (expand-file-name "~/dotfiles/emacs/js"))
 
-(eval-after-load "tree-widget"
-  '(if (boundp 'tree-widget-themes-load-path)
-       (add-to-list 'tree-widget-themes-load-path "~/dotfiles/emacs/widget/")))
-(autoload 'imenu-tree "imenu-tree" "Imenu tree" t)
-(autoload 'tags-tree "tags-tree" "TAGS tree" t)
-
-(setq default-abbrev-mode t)
+;(setq default-abbrev-mode t)
 (setq-default indent-tabs-mode nil)
 
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
@@ -38,12 +34,15 @@
 
 (require 'evil)
 (require 'rainbow-delimiters)
+(require 'tree-mode)
 
 (load "paredit.el")
 
 (require 'hiwin)
 (hiwin-activate)
-;(set-face-background 'hiwin-face "black")
+(set-face-background 'hiwin-face "color-17")
+;(set-face-background 'hiwin-face "color-52")
+;(set-face-background 'hiwin-face "color-53")
 
 (require 'column-enforce-mode)
 (make-column-rule 80)
@@ -54,6 +53,7 @@
 
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 ;(add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'after-init-hook 'global-company-mode)
 
 (require 'whitespace)
 (setq whitespace-style '(face empty tabs))
@@ -73,6 +73,21 @@
 (load "org-mode.el")
 (load "git.el")
 (load "javascript.el")
+(load "py.el")
+
+(load "tree/imenu-tree.el")
+(load "tree/tags-tree.el")
+(load "tree/tree-mode.el")
+(load "tree/windata.el")
+
+(require 'dirtree)
+
+(eval-after-load "tree-widget"
+  '(if (boundp 'tree-widget-themes-load-path)
+       (add-to-list 'tree-widget-themes-load-path "~/dotfiles/emacs/widget/")))
+(autoload 'imenu-tree "imenu-tree" "Imenu tree" t)
+(autoload 'tags-tree "tags-tree" "TAGS tree" t)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

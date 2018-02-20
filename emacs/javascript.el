@@ -1,8 +1,18 @@
 (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode))
+
+(require 'gulpjs)
+;;(require 'tern)
+(require 'company-tern)
+;M-: (delete-process "Tern") RET
+;# must add tmpl ~/dotfiles/.tern-project to prj root
 (add-to-list 'load-path "~/qfork/ternjs/emacs/")
-;(add-to-list 'load-path "
 (autoload 'tern-mode "tern.el" nil t)
 (add-hook 'rjsx-mode-hook (lambda () (tern-mode t)))
+(eval-after-load "company"
+  '(add-to-list 'company-backends 'company-tern))
+(setq company-tern-meta-as-single-line t)
+;(setq company-tooltip-align-annotations t)
+;(setq company-tern-property-marker " <p>")
 ;(add-to-list 'interpreter-mode-alist '("node" . js2-mode))
 ;(setq js2-basic-offset 2)
 

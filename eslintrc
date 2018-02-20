@@ -1,0 +1,21 @@
+{
+  "extends": ["eslint:recommended", "plugin:react/recommended"]
+  "plugins": ["react"],
+  "parserOptions": {
+    "ecmaFeatures" {
+      "jsx": true
+    }
+  }
+  "settings": {
+    "react": {
+      // regex for Component Factory to use
+      "createClass": "createReactClass",
+      "pragma": "React",
+      "version": "15.0",
+    },
+    // the names of any functions used to wrap the
+    // propTypes object; if this isn't set, any
+    // propTypes wrapped in a function will be
+    // skipped
+    "propWrapperFunctions": ["forbidExtraProps"]
+}
