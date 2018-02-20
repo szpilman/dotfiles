@@ -1,9 +1,9 @@
 (require 'package)
+(package-initialize)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
-(package-initialize)
 
 (defvar my-packages '(evil
                       evil-leader
@@ -13,23 +13,30 @@
                       org
                       w3m
                       xterm-frobs
-                      ; movement
-                      smooth-scrolling
-                      hiwin
                       ; project & file mgmt
                       company
                       projectile
                       dirtree
                       flx-ido
                       magit
+                      ; movement
+                      ;expand-region
+                      smooth-scrolling
+                      hiwin
                       ; lisp
                       paredit
                       paredit-everywhere
                       rainbow-delimiters
+                      ;hy-mode
                       ; js
                       ;rjsx-mode
+                      js3-mode
                       js2-mode
-                      web-mode
+                      nodejs-repl
+                      skewer-mode
+                      ;ac-js2
+                      ;auto-complete
+                      ;web-mode
                       kite
                       tern
                       company-tern
@@ -42,7 +49,7 @@
                       ;ac-nrepl
                       ; general workflow
                       column-enforce-mode
-                      auto-complete
+                      ;auto-complete
                       flycheck
                       ; misc
                       erc-hl-nicks
